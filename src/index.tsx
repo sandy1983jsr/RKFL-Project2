@@ -2,6 +2,7 @@ import { Hono } from 'hono'
 import { cors } from 'hono/cors'
 import { serveStatic } from 'hono/cloudflare-workers'
 import { apiRouter } from './routes/api'
+import { apiV2Router } from './routes/api-v2'
 
 const app = new Hono()
 
@@ -10,6 +11,7 @@ app.use('/static/*', serveStatic({ root: './' }))
 
 // API routes
 app.route('/api', apiRouter)
+app.route('/api/v2', apiV2Router)
 
 // Serve main app for all other routes (SPA)
 app.get('*', (c) => {
